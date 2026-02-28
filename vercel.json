@@ -1,0 +1,38 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/index.py",
+      "use": "@vercel/python",
+      "config": {
+        "maxDuration": 30,
+        "runtime": "python3.9"
+      }
+    },
+    {
+      "src": "frontend/dist",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/index.py"
+    },
+    {
+      "src": "/",
+      "dest": "/frontend/dist/index.html"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/frontend/dist/$1"
+    }
+  ],
+  "env": {
+    "SUPABASE_URL": "https://aahqejldfvcyxqwixkcp.supabase.co",
+    "SUPABASE_PASSWORD": "ma.em4C$*@H3UyK",
+    "JWT_SECRET": "goldcard_secret_key_change_in_prod",
+    "ENV": "production"
+  },
+  "framework": null
+}

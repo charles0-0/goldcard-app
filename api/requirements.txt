@@ -1,0 +1,7 @@
+# Vercel Python Runtime Dependencies
+psycopg2-binary
+python-jose[cryptography]
+passlib[bcrypt]
+python-multipart
+sqlalchemy
+urllib3
