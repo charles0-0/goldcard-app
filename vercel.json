@@ -27,12 +27,5 @@
       "src": "/(.*)",
       "dest": "/frontend/dist/$1"
     }
-  ],
-  "env": {
-    "SUPABASE_URL": "https://aahqejldfvcyxqwixkcp.supabase.co",
-    "SUPABASE_PASSWORD": "ma.em4C$*@H3UyK",
-    "JWT_SECRET": "goldcard_secret_key_change_in_prod",
-    "ENV": "production"
-  },
-  "framework": null
+  ]
 }
