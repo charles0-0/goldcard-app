@@ -26,11 +26,18 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 300
 # Password: 8NcawxMvx0FPMePa
 SQLALCHEMY_DATABASE_URL = "postgresql://postgres:8NcawxMvx0FPMePa@db.aahqejldfvcyxqwixkcp.supabase.co:5432/postgres"
 print(f"DEBUG: Using PostgreSQL", file=sys.stderr)
+print(f"DEBUG: URL={SQLALCHEMY_DATABASE_URL[:50]}...", file=sys.stderr)
 
 # Create engine and session
-engine = create_engine(SQLALCHEMY_DATABASE_URL)
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-Base = declarative_base()
+try:
+    engine = create_engine(SQLALCHEMY_DATABASE_URL)
+    print(f"DEBUG: Engine created", file=sys.stderr)
+    SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+    Base = declarative_base()
+    print(f"DEBUG: Session created", file=sys.stderr)
+except Exception as e:
+    print(f"DEBUG ERROR: {str(e)}", file=sys.stderr)
+    raise
 
 # Password context
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
