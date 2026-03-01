@@ -17,19 +17,26 @@ from passlib.context import CryptContext
 from jose import JWTError, jwt
 
 # Load environment variables
-SUPABASE_URL = os.getenv("SUPABASE_URL", "https://aahqejldfvcyxqwixkcp.supabase.co")
+import sys
+SUPABASE_URL = os.getenv("SUPABASE_URL", "")
 SUPABASE_PASSWORD = os.getenv("SUPABASE_PASSWORD", "")
 JWT_SECRET = os.getenv("JWT_SECRET", "goldcard_secret_key_change_in_prod")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 300
 
+# Debug - print what we got
+print(f"DEBUG: SUPABASE_URL = {SUPABASE_URL}", file=sys.stderr)
+print(f"DEBUG: SUPABASE_PASSWORD exists = {bool(SUPABASE_PASSWORD)}", file=sys.stderr)
+
 # Database URL
-if SUPABASE_PASSWORD:
+if SUPABASE_URL and SUPABASE_PASSWORD:
     project_ref = SUPABASE_URL.replace("https://", "").replace(".supabase.co", "")
     encoded_password = quote_plus(SUPABASE_PASSWORD)
     SQLALCHEMY_DATABASE_URL = f"postgresql://postgres:{encoded_password}@db.{project_ref}.supabase.co:5432/postgres"
+    print(f"DEBUG: Using PostgreSQL", file=sys.stderr)
 else:
     SQLALCHEMY_DATABASE_URL = "sqlite:///./database.sqlite"
+    print(f"DEBUG: Using SQLite", file=sys.stderr)
 
 # Create engine and session
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
