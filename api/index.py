@@ -22,10 +22,10 @@ JWT_SECRET = os.getenv("JWT_SECRET", "goldcard_secret_key_change_in_prod")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 300
 
-# Database URL - hardcode the connection string with URL-encoded password
-# Password: ma.em4C$*@H3UyK -> encoded: ma.em4C%24%2A%40H3UyK
-SQLALCHEMY_DATABASE_URL = "postgresql://postgres:ma.em4C%24%2A%40H3UyK@db.aahqejldfvcyxqwixkcp.supabase.co:5432/postgres"
-print(f"DEBUG: Using PostgreSQL with correct encoding", file=sys.stderr)
+# Database URL - Direct PostgreSQL connection to Supabase
+# Password: 8NcawxMvx0FPMePa
+SQLALCHEMY_DATABASE_URL = "postgresql://postgres:8NcawxMvx0FPMePa@db.aahqejldfvcyxqwixkcp.supabase.co:5432/postgres"
+print(f"DEBUG: Using PostgreSQL", file=sys.stderr)
 
 # Create engine and session
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
