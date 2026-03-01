@@ -6,7 +6,7 @@
     },
     {
       "use": "@vercel/static",
-      "src": "public/"
+      "src": "public/**"
     }
   ],
   "routes": [
@@ -16,7 +16,7 @@
     },
     {
       "dest": "/public/index.html",
-      "src": "/"
+      "src": "/((?!api).*)"
     }
   ]
 }
