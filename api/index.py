@@ -18,14 +18,14 @@ from jose import JWTError, jwt
 
 # Load environment variables
 import sys
-SUPABASE_URL = os.getenv("SUPABASE_URL", "")
-SUPABASE_PASSWORD = os.getenv("SUPABASE_PASSWORD", "")
+SUPABASE_URL = os.getenv("SUPABASE_URL", "https://aahqejldfvcyxqwixkcp.supabase.co")
+SUPABASE_PASSWORD = os.getenv("SUPABASE_PASSWORD", "ma.em4C$*@H3UyK")
 JWT_SECRET = os.getenv("JWT_SECRET", "goldcard_secret_key_change_in_prod")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 300
 
-# Debug - print what we got
-print(f"DEBUG: SUPABASE_URL = {SUPABASE_URL}", file=sys.stderr)
+# Debug
+print(f"DEBUG: SUPABASE_URL = {SUPABASE_URL[:30]}...", file=sys.stderr)
 print(f"DEBUG: SUPABASE_PASSWORD exists = {bool(SUPABASE_PASSWORD)}", file=sys.stderr)
 
 # Database URL
