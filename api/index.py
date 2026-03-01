@@ -4,6 +4,7 @@ Entry point for all API requests
 """
 
 import os
+import sys
 import json
 from datetime import datetime, timedelta
 from urllib.parse import quote_plus
@@ -16,27 +17,16 @@ from sqlalchemy.orm import sessionmaker, relationship, declarative_base
 from passlib.context import CryptContext
 from jose import JWTError, jwt
 
-# Load environment variables
-import sys
-SUPABASE_URL = os.getenv("SUPABASE_URL", "https://aahqejldfvcyxqwixkcp.supabase.co")
-SUPABASE_PASSWORD = os.getenv("SUPABASE_PASSWORD", "ma.em4C$*@H3UyK")
+# Database URL - Direct PostgreSQL connection to Supabase
+SUPABASE_URL = "https://aahqejldfvcyxqwixkcp.supabase.co"
+SUPABASE_PASSWORD = "ma.em4C$*@H3UyK"
 JWT_SECRET = os.getenv("JWT_SECRET", "goldcard_secret_key_change_in_prod")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 300
 
-# Debug
-print(f"DEBUG: SUPABASE_URL = {SUPABASE_URL[:30]}...", file=sys.stderr)
-print(f"DEBUG: SUPABASE_PASSWORD exists = {bool(SUPABASE_PASSWORD)}", file=sys.stderr)
-
-# Database URL
-if SUPABASE_URL and SUPABASE_PASSWORD:
-    project_ref = SUPABASE_URL.replace("https://", "").replace(".supabase.co", "")
-    encoded_password = quote_plus(SUPABASE_PASSWORD)
-    SQLALCHEMY_DATABASE_URL = f"postgresql://postgres:{encoded_password}@db.{project_ref}.supabase.co:5432/postgres"
-    print(f"DEBUG: Using PostgreSQL", file=sys.stderr)
-else:
-    SQLALCHEMY_DATABASE_URL = "sqlite:///./database.sqlite"
-    print(f"DEBUG: Using SQLite", file=sys.stderr)
+# Database URL - hardcode the connection string
+SQLALCHEMY_DATABASE_URL = "postgresql://postgres:ma.em4C%24%2A%40H3UyK@db.aahqejldfvcyxqwixkcp.supabase.co:5432/postgres"
+print(f"DEBUG: Using PostgreSQL directly", file=sys.stderr)
 
 # Create engine and session
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
